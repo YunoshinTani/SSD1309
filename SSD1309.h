@@ -91,7 +91,7 @@ public:
 
     void fillCircle(uint8_t x, uint8_t y, uint8_t r);
 
-    void drawInt(int data, uint8_t x, uint8_t y, const char *option);
+    void drawInt(int data, uint8_t x, uint8_t y, const char *option = "%d");
 
     void drawChar(char data);
 

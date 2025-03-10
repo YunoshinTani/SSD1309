@@ -123,7 +123,7 @@ void oled::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
     // Not implemented
 }
 
-void oled::drawInt(int data, uint8_t x, uint8_t y, const char *option = "%d") {
+void oled::drawInt(int data, uint8_t x, uint8_t y, const char *option) {
     char buf[10];
     sprintf(buf, option, data);
     drawText(buf, x, y);
