@@ -12,7 +12,6 @@
 
 oled::oled(PinName sda, PinName scl, uint8_t address) : _i2c(sda, scl) {
     _address = address << 1;
-    _i2c.frequency(4e5);
 }
 
 bool oled::command(uint8_t cmd) {
