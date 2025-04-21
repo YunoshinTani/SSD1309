@@ -142,15 +142,19 @@ void Oled::drawText(const char *text, uint8_t x, uint8_t y) {
     }
 }
 
-void Oled::drawQR(uint8_t x, uint8_t y) {
+void Oled::drawData(const uint8_t data[][8], uint8_t x, uint8_t y) {
     for (uint8_t py=0; py<5; py++) {
         for (uint8_t px=0; px<5; px++) {
             setCursor(px * 8 + x, py + y);
             for (uint8_t i=0; i<8; i++) {
-                send(YotsuyaQR[px + 5 * py][i]);
+                send(data[px + 5 * py][i]);
             }
         }
     }
+}
+
+void Oled::drawQR(uint8_t x, uint8_t y) {
+    drawData(YotsuyaQR, x, y);
 }
 
 void Oled::drawQR(uint8_t data[25][8] , uint8_t x, uint8_t y) {

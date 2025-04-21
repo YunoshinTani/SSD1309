@@ -97,6 +97,8 @@ public:
 
     void drawText(const char *text, uint8_t x, uint8_t y);
 
+    void drawData(const uint8_t data[][8], uint8_t x, uint8_t y);
+
     void drawQR(uint8_t x, uint8_t y);
 
     void drawQR(uint8_t data[25][8], uint8_t x, uint8_t y);
