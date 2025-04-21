@@ -56,10 +56,10 @@
 #define DISPLAY_WIDTH 128
 #define DISPLAY_HEGHT 64
 
-class oled
+class Oled
 {
 public:
-    oled(PinName sda, PinName scl, uint8_t address);
+    Oled(PinName sda, PinName scl, uint8_t address);
 
     bool command(uint8_t cmd);
 

@@ -3,7 +3,7 @@ version 1.0.0
 date    2025/02/27
 
 ## 概要 (about)
-ステッピングモータードライバーIC "ULN2003APG" を制御するライブラリです。  
+有機ELディスプレイ(OLED)を制御するIC "SSD1309" を制御するライブラリです。  
 GitHubのリンク [YunoshinTani/SSD1309](https://github.com/YunoshinTani/SSD1309.git)  
 mbedOSでのみ動作します。開発環境はSTM32F446REです。
 
@@ -42,9 +42,9 @@ QRコードを表示します。
 
 ## コード例 (example)
 ```cpp
-#include <SSD1309.h>
+#include <SSD1309.hpp>
 
-oled display1(PB_9, PB_8);
+Oled display1(PB_9, PB_8);
 
 int main() {
     display1.init();

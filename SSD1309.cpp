@@ -8,23 +8,23 @@
  * @copyright Copyright (c) 2025
  */
 
-#include "SSD1309.h"
+#include "SSD1309.hpp"
 
-oled::oled(PinName sda, PinName scl, uint8_t address) : _i2c(sda, scl) {
+Oled::Oled(PinName sda, PinName scl, uint8_t address) : _i2c(sda, scl) {
     _address = address << 1;
 }
 
-bool oled::command(uint8_t cmd) {
+bool Oled::command(uint8_t cmd) {
     char buf[2] = {0x00, cmd};
     return (_i2c.write(_address, buf, 2) != 0) ? true : false;
 }
 
-bool oled::send(uint8_t data) {
+bool Oled::send(uint8_t data) {
     char buf[2] = {0x40, data};
     return (_i2c.write(_address, buf, 2) != 0) ? true : false;
 }
 
-void oled::init()
+void Oled::init()
 {
     _i2c.frequency(4e5);
 
@@ -56,11 +56,11 @@ void oled::init()
     command(0xAF); // ディスプレイON
 }
 
-bool oled::test() {
+bool Oled::test() {
     return _i2c.write(_address, 0x00, 1);
 }
 
-void oled::clear() {
+void Oled::clear() {
     for (int i3=0; i3<8; i3++) {
         setCursor(0, i3);
         for (int i2=0; i2<16; i2++) {
@@ -71,7 +71,7 @@ void oled::clear() {
     }
 }
 
-void oled::fill() {
+void Oled::fill() {
     for (int i3=0; i3<8; i3++) {
         setCursor(0, i3);
         for (int i2=0; i2<16; i2++) {
@@ -83,66 +83,66 @@ void oled::fill() {
     }
 }
 
-void oled::setCursor(uint8_t x, uint8_t y) {
+void Oled::setCursor(uint8_t x, uint8_t y) {
     command(0xB0 + y);
     command(0x00 + (x & 0x0F));
     command(0x10 + ((x >> 4) & 0x0F));
 }
 
-void oled::drawPixel(uint8_t x, uint8_t y) {
+void Oled::drawPixel(uint8_t x, uint8_t y) {
     setCursor(x, y);
     send(0x01);
 }
 
-void oled::drawLine(uint8_t x, uint8_t y) {
+void Oled::drawLine(uint8_t x, uint8_t y) {
     // Not implemented
 }
 
-void oled::drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+void Oled::drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
     // Not implemented
 }
 
-void oled::drawRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+void Oled::drawRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     // Not implemented
 }
 
-void oled::fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+void Oled::fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
     // Not implemented
 }
 
-void oled::fillRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+void Oled::fillRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     // Not implemented
 }
 
-void oled::drawCircle(uint8_t x, uint8_t y, uint8_t r) {
+void Oled::drawCircle(uint8_t x, uint8_t y, uint8_t r) {
     // Not implemented
 }
 
-void oled::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
+void Oled::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
     // Not implemented
 }
 
-void oled::drawInt(int data, uint8_t x, uint8_t y, const char *option) {
+void Oled::drawInt(int data, uint8_t x, uint8_t y, const char *option) {
     char buf[10];
     sprintf(buf, option, data);
     drawText(buf, x, y);
 }
 
-void oled::drawChar(char data) {
+void Oled::drawChar(char data) {
     for (uint8_t i=0; i<5; i++) {
-        send(oled::FONT5x8[data - 32][i]);
+        send(Oled::FONT5x8[data - 32][i]);
     }
     send(0x00);
 }
 
-void oled::drawText(const char *text, uint8_t x, uint8_t y) {
+void Oled::drawText(const char *text, uint8_t x, uint8_t y) {
     setCursor(x, y);
     while (*text) {
         drawChar(*text++);
     }
 }
 
-void oled::drawQR(uint8_t x, uint8_t y) {
+void Oled::drawQR(uint8_t x, uint8_t y) {
     for (uint8_t py=0; py<5; py++) {
         for (uint8_t px=0; px<5; px++) {
             setCursor(px * 8 + x, py + y);
@@ -153,7 +153,7 @@ void oled::drawQR(uint8_t x, uint8_t y) {
     }
 }
 
-void oled::drawQR(uint8_t data[25][8] , uint8_t x, uint8_t y) {
+void Oled::drawQR(uint8_t data[25][8] , uint8_t x, uint8_t y) {
     for (uint8_t py=0; py<5; py++) {
         for (uint8_t px=0; px<5; px++) {
             setCursor(px * 8 + x, py + y);
