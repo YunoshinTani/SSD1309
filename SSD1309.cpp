@@ -142,28 +142,19 @@ void Oled::drawText(const char *text, uint8_t x, uint8_t y) {
     }
 }
 
-void Oled::drawData(const uint8_t data[][8], uint8_t x, uint8_t y) {
-    for (uint8_t py=0; py<5; py++) {
-        for (uint8_t px=0; px<5; px++) {
-            setCursor(px * 8 + x, py + y);
+// 1 cell == 8 * 8 pixel
+void Oled::drawData(const uint8_t data[][8], uint8_t x, uint8_t y, uint8_t max_row, uint8_t max_column) {
+    for (uint8_t row=0; row<max_row; row++) {
+        for (uint8_t column=0; column<max_column; column++) {
+            setCursor(column*8 + x, row + y);
             for (uint8_t i=0; i<8; i++) {
-                send(data[px + 5 * py][i]);
+                send(data[row*max_column + column][i]);
             }
         }
     }
 }
 
 void Oled::drawQR(uint8_t x, uint8_t y) {
-    drawData(YotsuyaQR, x, y);
+    drawData(YotsuyaQR, x, y, 5, 5);
 }
 
-void Oled::drawQR(uint8_t data[25][8] , uint8_t x, uint8_t y) {
-    for (uint8_t py=0; py<5; py++) {
-        for (uint8_t px=0; px<5; px++) {
-            setCursor(px * 8 + x, py + y);
-            for (uint8_t i=0; i<8; i++) {
-                send(data[px + 5 * y][i]);
-            }
-        }
-    }
-}
