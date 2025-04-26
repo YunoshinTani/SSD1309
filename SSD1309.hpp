@@ -1,10 +1,11 @@
 /**
- * @file SSD1309.h
+ * @file ssd1309.h
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version 1.0.0
- * @date 2025/02/27
+ * @version 2.0.0
+ * @since 2025/04/26
+ * @date 2025/04/26
  * @copyright Copyright (c) 2025
  */
 
@@ -56,10 +57,10 @@
 #define DISPLAY_WIDTH 128
 #define DISPLAY_HEGHT 64
 
-class Oled
+class SSD1309
 {
 public:
-    Oled(PinName sda, PinName scl, uint8_t address);
+    SSD1309(PinName sda, PinName scl, uint8_t address);
 
     bool command(uint8_t cmd);
 

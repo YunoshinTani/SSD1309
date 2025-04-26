@@ -1,30 +1,31 @@
 /**
- * @file SSD1309.cpp
+ * @file ssd1309.cpp
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version 1.0.0
- * @date 2025/02/27
+ * @version 2.0.0
+ * @since 2025/04/26
+ * @date 2025/04/26
  * @copyright Copyright (c) 2025
  */
 
-#include "SSD1309.hpp"
+#include "ssd1309.hpp"
 
-Oled::Oled(PinName sda, PinName scl, uint8_t address) : _i2c(sda, scl) {
+SSD1309::SSD1309(PinName sda, PinName scl, uint8_t address) : _i2c(sda, scl) {
     _address = address << 1;
 }
 
-bool Oled::command(uint8_t cmd) {
+bool SSD1309::command(uint8_t cmd) {
     char buf[2] = {0x00, cmd};
     return (_i2c.write(_address, buf, 2) != 0) ? true : false;
 }
 
-bool Oled::send(uint8_t data) {
+bool SSD1309::send(uint8_t data) {
     char buf[2] = {0x40, data};
     return (_i2c.write(_address, buf, 2) != 0) ? true : false;
 }
 
-void Oled::init()
+void SSD1309::init()
 {
     _i2c.frequency(4e5);
 
@@ -56,11 +57,11 @@ void Oled::init()
     command(0xAF); // ディスプレイON
 }
 
-bool Oled::test() {
+bool SSD1309::test() {
     return _i2c.write(_address, 0x00, 1);
 }
 
-void Oled::clear() {
+void SSD1309::clear() {
     for (int i3=0; i3<8; i3++) {
         setCursor(0, i3);
         for (int i2=0; i2<16; i2++) {
@@ -71,7 +72,7 @@ void Oled::clear() {
     }
 }
 
-void Oled::fill() {
+void SSD1309::fill() {
     for (int i3=0; i3<8; i3++) {
         setCursor(0, i3);
         for (int i2=0; i2<16; i2++) {
@@ -83,66 +84,66 @@ void Oled::fill() {
     }
 }
 
-void Oled::setCursor(uint8_t x, uint8_t y) {
+void SSD1309::setCursor(uint8_t x, uint8_t y) {
     command(0xB0 + y);
     command(0x00 + (x & 0x0F));
     command(0x10 + ((x >> 4) & 0x0F));
 }
 
-void Oled::drawPixel(uint8_t x, uint8_t y) {
+void SSD1309::drawPixel(uint8_t x, uint8_t y) {
     setCursor(x, y);
     send(0x01);
 }
 
-void Oled::drawLine(uint8_t x, uint8_t y) {
+void SSD1309::drawLine(uint8_t x, uint8_t y) {
     // Not implemented
 }
 
-void Oled::drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+void SSD1309::drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
     // Not implemented
 }
 
-void Oled::drawRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+void SSD1309::drawRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     // Not implemented
 }
 
-void Oled::fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+void SSD1309::fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
     // Not implemented
 }
 
-void Oled::fillRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+void SSD1309::fillRect2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     // Not implemented
 }
 
-void Oled::drawCircle(uint8_t x, uint8_t y, uint8_t r) {
+void SSD1309::drawCircle(uint8_t x, uint8_t y, uint8_t r) {
     // Not implemented
 }
 
-void Oled::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
+void SSD1309::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
     // Not implemented
 }
 
-void Oled::drawInt(int data, uint8_t row, uint8_t x, const char *option) {
+void SSD1309::drawInt(int data, uint8_t row, uint8_t x, const char *option) {
     char buf[10];
     sprintf(buf, option, data);
     drawText(buf, x, row);
 }
 
-void Oled::drawChar(char data) {
+void SSD1309::drawChar(char data) {
     for (uint8_t i=0; i<5; i++) {
-        send(Oled::FONT5x8[data - 32][i]);
+        send(SSD1309::FONT5x8[data - 32][i]);
     }
     send(0x00);
 }
 
-void Oled::drawText(const char *text, uint8_t row, uint8_t x) {
+void SSD1309::drawText(const char *text, uint8_t row, uint8_t x) {
     setCursor(x, row);
     while (*text) {
         drawChar(*text++);
     }
 }
 
-void Oled::drawText(const char *text, uint8_t row, Align align) {
+void SSD1309::drawText(const char *text, uint8_t row, Align align) {
     if (align == Align::Left) setCursor(0, row);
     else if (align == Align::Center) setCursor((128-strlen(text)*6)/2, row);
     else if (align == Align::Right) setCursor(128-strlen(text)*6, row);
@@ -153,7 +154,7 @@ void Oled::drawText(const char *text, uint8_t row, Align align) {
 }
 
 // 1 cell == 8 * 8 pixel
-void Oled::drawData(const uint8_t data[][8], uint8_t x, uint8_t y, uint8_t max_row, uint8_t max_column) {
+void SSD1309::drawData(const uint8_t data[][8], uint8_t x, uint8_t y, uint8_t max_row, uint8_t max_column) {
     for (uint8_t row=0; row<max_row; row++) {
         for (uint8_t column=0; column<max_column; column++) {
             setCursor(column*8 + x, row + y);
@@ -164,7 +165,7 @@ void Oled::drawData(const uint8_t data[][8], uint8_t x, uint8_t y, uint8_t max_r
     }
 }
 
-void Oled::drawQR(uint8_t data[25][8], uint8_t x, uint8_t y) {
+void SSD1309::drawQR(uint8_t data[25][8], uint8_t x, uint8_t y) {
     drawData(data, x, y, 5, 5);
 }
 
