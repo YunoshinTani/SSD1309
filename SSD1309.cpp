@@ -122,10 +122,10 @@ void Oled::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
     // Not implemented
 }
 
-void Oled::drawInt(int data, uint8_t x, uint8_t y, const char *option) {
+void Oled::drawInt(int data, uint8_t row, uint8_t x, const char *option) {
     char buf[10];
     sprintf(buf, option, data);
-    drawText(buf, x, y);
+    drawText(buf, x, row);
 }
 
 void Oled::drawChar(char data) {
@@ -135,8 +135,18 @@ void Oled::drawChar(char data) {
     send(0x00);
 }
 
-void Oled::drawText(const char *text, uint8_t x, uint8_t y) {
-    setCursor(x, y);
+void Oled::drawText(const char *text, uint8_t row, uint8_t x) {
+    setCursor(x, row);
+    while (*text) {
+        drawChar(*text++);
+    }
+}
+
+void Oled::drawText(const char *text, uint8_t row, Align align) {
+    if (align == Align::Left) setCursor(0, row);
+    else if (align == Align::Center) setCursor((128-strlen(text)*6)/2, row);
+    else if (align == Align::Right) setCursor(128-strlen(text)*6, row);
+    else setCursor(0, row);
     while (*text) {
         drawChar(*text++);
     }
@@ -154,7 +164,7 @@ void Oled::drawData(const uint8_t data[][8], uint8_t x, uint8_t y, uint8_t max_r
     }
 }
 
-void Oled::drawQR(uint8_t x, uint8_t y) {
-    drawData(YotsuyaQR, x, y, 5, 5);
+void Oled::drawQR(uint8_t data[25][8], uint8_t x, uint8_t y) {
+    drawData(data, x, y, 5, 5);
 }
 
