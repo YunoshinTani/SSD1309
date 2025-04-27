@@ -12,38 +12,38 @@ GitHubのリンク : [YunoshinTani/SSD1309_OLED_Driver](https://github.com/Yunos
 
 ### 重要な関数
 
-- *oled(PinName sda, PinName scl, PinName address = 0x3c)*  
+- **`oled(PinName sda, PinName scl, PinName address = 0x3c)`**  
 コンストラクタです。I2C通信に使用するSDA,SCLピンとアドレスを指定します。addressは0x3Cが初期設定値です。
-- *void init()*  
+- **`void init()`**  
 ディスプレイの初期設定をします。やっておかないと動かないので注意。
-- *void clear()*  
+- **`void clear()`**  
 ディスプレイのピクセルをすべて消します。
-- *void fill()*  
+- **`void fill()`**  
 ディスプレイのピクセルをすべて表示します。
-- *void drawText(const char *text, uint8_t row, Align align = Left)*  
-文章を表示します。一番使えるやつです。例えば、alignに*Center*を指定すると、中央揃えにしてくれます。初期値はLeftです。
-- *void drawText(const char *text, uint8_t row, uint8_t x)*  
+- **`void drawText(const char *text, uint8_t row, Align align = Left)`**  
+文章を表示します。一番使えるやつです。例えば、alignに**Center**を指定すると、中央揃えにしてくれます。初期値はLeftです。
+- **`void drawText(const char *text, uint8_t row, uint8_t x)`**  
 上の関数の最後の引数を数字にすると、その引数のx座標から文章を表示します。細かい位置指定が必要な時に使えます。
-- *void drawInt(int data, uint8_t row, uint8_t x, const char *option)*  
+- **`void drawInt(int data, uint8_t row, uint8_t x, const char *option)`**  
 数字を表示します。optionにフォーマット指定子(%dなど)を指定できます。初期設定値は"%d"です。センサーの数字を表示する等に便利です。
-- *void drawData(const uint8_t data[][8], uint8_t x=0, uint8_t y=0, uint8_t max_row=8, uint8_t max_column=16)*  
+- **`void drawData(const uint8_t data[][8], uint8_t x=0, uint8_t y=0, uint8_t max_row=8, uint8_t max_column=16)`**  
 ピクセルのデータを描画します。絵を描画したいときに使えます。ピクセルの配列はなんか癖が強いので注意してね。
-- *void drawQR(uint8_t data[][], uint8_t x, uint8_t y)*  
+- **`void drawQR(uint8_t data[][], uint8_t x, uint8_t y)`**  
 QRコードを表示します。今は人力です。いつかQRコードを生成するようにしてやります。
 
 ### 重要じゃない関数
 
-- *bool test()*  
+- **bool test()`**  
 通信のテストをします。返り値が0であれば通信成功です。
-- *void drawLine(uint8_t x, uint8_t y)*  
+- **`void drawLine(uint8_t x, uint8_t y)`**  
 指定した座標に線を表示します。必ずどちらかを0にしてください。これ一次関数の式にすればいいんじゃね... いつかやります。
-- *void drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h)*  
+- **`void drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h)`**  
 四角形(輪郭のみ)を表示します。指定する座標は左下の座標です。横幅wと高さhを指定します。
-- *void fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h)*  
+- **`void fillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h)`**  
 四角形(塗りつぶし)を表示します。指定する座標は左下の座標です。横幅wと高さhを指定します。
-- *void drawCircle(uint8_t x, uint8_t y, uint8_t r)*  
+- **`void drawCircle(uint8_t x, uint8_t y, uint8_t r)`**  
 円(輪郭のみ)を表示します。指定する座標は円の中心です。半径rを指定します。
-- *void fillCircle(uint8_t x, uint8_t y, uint8_t r)*  
+- **`void fillCircle(uint8_t x, uint8_t y, uint8_t r)`**  
 円(塗りつぶし)を表示します。指定する輪郭は円の中心です。半径rを指定します。
 
 ## コード例 (example)
@@ -76,9 +76,9 @@ int main() {
 
 ## このファイルについて (about this file)
 
-*author*  : Yunoshin Tani  
-*version* : 2.0.1  
-*date*    : 2025/04/27  
+**author**  : Yunoshin Tani  
+**version** : 2.0.2  
+**date**    : 2025/04/27  
 
 > [!NOTE]
 > スクロールにも対応予定です。
