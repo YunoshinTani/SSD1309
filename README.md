@@ -33,7 +33,7 @@ QRコードを表示します。今は人力です。いつかQRコードを生�
 
 ### 重要じゃない関数
 
-- **bool test()`**  
+- **`bool test()`**  
 通信のテストをします。返り値が0であれば通信成功です。
 - **`void drawLine(uint8_t x, uint8_t y)`**  
 指定した座標に線を表示します。必ずどちらかを0にしてください。これ一次関数の式にすればいいんじゃね... いつかやります。
@@ -63,9 +63,9 @@ int main() {
         oled1.drawText("HelloWorld!", 1, Oled::Align::Center); // 文字列を1行目に中央揃えで表示
         oled1.drawText("I like Sushi very much", 3); // 文字列を3行目に左揃え(デフォルト)で表示
         oled1.drawText("Sensor Value:", 5, 20); // 文字列をX座標20の位置から表示
-        oled1.drawInt(sensor_value, 6, 0); // 値(int型)をX座標0の位置から表示
+        oled1.drawInt(example_value1, 6, 0); // 値(int型)をX座標0の位置から表示
         oled1.drawText(",", 6, 30); // 文字列をX座標20の位置から表示
-        oled1.drawInt(sensorvalue, 6, 60);
+        oled1.drawInt(example_value2, 6, 60);
         oled1.drawText("GoodLuck!!", 7, Oled::Align::Right); // 行は0から7まで
     }
 }
@@ -77,8 +77,8 @@ int main() {
 ## このファイルについて (about this file)
 
 **author**  : Yunoshin Tani  
-**version** : 2.0.2  
-**date**    : 2025/04/27  
+**version** : 2.0.3  
+**date**    : 2025/04/28  
 
 > [!NOTE]
 > スクロールにも対応予定です。
