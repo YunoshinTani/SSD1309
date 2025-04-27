@@ -3,6 +3,7 @@
 ## 概要 (about)
 
 有機ELディスプレイ(OLED)を制御するIC "SSD1309" を制御するライブラリです。  
+[コードの例](#コード例-example)を見たら、使い方は大体わかると思います。
 GitHubのリンク : [YunoshinTani/SSD1309_OLED_Driver](https://github.com/YunoshinTani/SSD1309_OLED_Driver.git)
 
 > [!NOTE]
@@ -30,6 +31,9 @@ GitHubのリンク : [YunoshinTani/SSD1309_OLED_Driver](https://github.com/Yunos
 ピクセルのデータを描画します。絵を描画したいときに使えます。ピクセルの配列はなんか癖が強いので注意してね。
 - **`void drawQR(uint8_t data[][], uint8_t x, uint8_t y)`**  
 QRコードを表示します。今は人力です。いつかQRコードを生成するようにしてやります。
+
+> [!IMPORTANT]
+> `init()`を実行しないとディスプレイが使えません。注意してね。
 
 ### 重要じゃない関数
 
@@ -77,7 +81,7 @@ int main() {
 ## このファイルについて (about this file)
 
 **author**  : Yunoshin Tani  
-**version** : 2.0.3  
+**version** : 2.0.4  
 **date**    : 2025/04/28  
 
 > [!NOTE]
