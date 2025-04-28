@@ -3,9 +3,9 @@
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version 2.0.0
+ * @version 2.0.1
  * @since 2025/04/26
- * @date 2025/04/26
+ * @date 2025/04/28
  * @copyright Copyright (c) 2025
  */
 
@@ -62,24 +62,19 @@ bool SSD1309::test() {
 }
 
 void SSD1309::clear() {
-    for (int i3=0; i3<8; i3++) {
-        setCursor(0, i3);
-        for (int i2=0; i2<16; i2++) {
-            for (int i1=0; i1<8; i1++) {
-                send(0x00);
-            }
+    for (uint8_t i1=0; i1<8; i1++) {
+        setCursor(0, i1);
+        for (uint8_t i2=0; i2<16; i2++) {
+            send(0x00);
         }
     }
 }
 
 void SSD1309::fill() {
-    for (int i3=0; i3<8; i3++) {
-        setCursor(0, i3);
-        for (int i2=0; i2<16; i2++) {
-            for (int i1=0; i1<8; i1++) {
-                send(0xFF);
-                // ThisThread::sleep_for(5ms); // for debug
-            }
+    for (uint8_t i1=0; i1<8; i1++) {
+        setCursor(0, i1);
+        for (uint8_t i2=0; i2<16; i2++) {
+            send(0xFF);
         }
     }
 }
