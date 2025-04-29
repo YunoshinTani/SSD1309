@@ -3,9 +3,9 @@
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version 2.0.1
+ * @version α2.1.0
  * @since 2025/04/26
- * @date 2025/04/28
+ * @date 2025/04/29
  * @copyright Copyright (c) 2025
  */
 
@@ -17,12 +17,12 @@ SSD1309::SSD1309(PinName sda, PinName scl, uint8_t address) : _i2c(sda, scl) {
 
 bool SSD1309::command(uint8_t cmd) {
     char buf[2] = {0x00, cmd};
-    return (_i2c.write(_address, buf, 2) != 0) ? true : false;
+    return (_i2c.write(_address, buf, 2) == 0) ? true : false;
 }
 
 bool SSD1309::send(uint8_t data) {
     char buf[2] = {0x40, data};
-    return (_i2c.write(_address, buf, 2) != 0) ? true : false;
+    return (_i2c.write(_address, buf, 2) == 0) ? true : false;
 }
 
 void SSD1309::init()
@@ -58,7 +58,7 @@ void SSD1309::init()
 }
 
 bool SSD1309::test() {
-    return _i2c.write(_address, 0x00, 1);
+    return command(0xAF);
 }
 
 void SSD1309::clear() {

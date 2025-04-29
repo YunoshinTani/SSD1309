@@ -31,14 +31,14 @@ GitHubのリンク : [YunoshinTani/SSD1309_OLED_Driver](https://github.com/Yunos
 ピクセルのデータを描画します。絵を描画したいときに使えます。ピクセルの配列はなんか癖が強いので注意してね。
 - **`void drawQR(uint8_t data[][], uint8_t x, uint8_t y)`**  
 QRコードを表示します。今は人力です。いつかQRコードを生成するようにしてやります。
+- **`bool test()`**  
+通信のテストをします。返り値が1であれば通信成功です。
 
 > [!IMPORTANT]
 > `init()`を実行しないとディスプレイが使えません。注意してね。
 
-### 重要じゃない関数 (使わないほうがいいのもちらほら)
+### 未実装の関数 (まだ使えないので注意)
 
-- **`bool test()`**  
-通信のテストをします。返り値が0であれば通信成功です。
 - **`void drawLine(uint8_t x, uint8_t y)`**  
 指定した座標に線を表示します。必ずどちらかを0にしてください。これ一次関数の式にすればいいんじゃね... いつかやります。
 - **`void drawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h)`**  
@@ -78,14 +78,20 @@ int main() {
 > [!NOTE]
 > 22文字以上の文字列は次の行に改行されます。
 
+## このライブラリについて (about this library)
+
+**author**  : Yunoshin Tani  
+**version** : α2.1.0  
+**since**   : 2025/04/26  
+**date**    : 2025/04/28  
+
 ## このファイルについて (about this file)
 
 **author**  : Yunoshin Tani  
-**version** : α2.0.4  
+**version** : α2.1.0  
+**since**   : 2025/04/26  
 **date**    : 2025/04/28  
 
 > [!NOTE]
-> まだベータ版です。
+> まだアルファ版です。
 > スクロールにも対応予定です。
-
-end

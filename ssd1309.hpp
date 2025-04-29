@@ -3,9 +3,9 @@
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version 2.0.0
+ * @version α2.1.0
  * @since 2025/04/26
- * @date 2025/04/26
+ * @date 2025/04/29
  * @copyright Copyright (c) 2025
  */
 
