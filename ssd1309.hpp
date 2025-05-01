@@ -3,7 +3,7 @@
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version α2.1.0
+ * @version α2.2.0
  * @since 2025/04/26
  * @date 2025/04/29
  * @copyright Copyright (c) 2025
@@ -92,19 +92,20 @@ public:
 
     void fillCircle(uint8_t x, uint8_t y, uint8_t r);
 
-    void drawInt(int data, uint8_t row, uint8_t x = 0, const char *option = "%d");
-
-    void drawChar(char data);
-
     enum class Align {
         Left,
         Center,
         Right,
     };
+    void drawChar(char data, bool reserve = false);
 
-    void drawText(const char *text, uint8_t row, uint8_t x);
+    void drawInt(int data, uint8_t row, uint8_t x = 0, const char *option = "%d");
 
-    void drawText(const char *text, uint8_t row, Align align = Align::Left);
+    void drawInt(int data, uint8_t row, Align align, const char *option = "%d");
+
+    void drawText(const char *text, uint8_t row, uint8_t x, bool reserve = false);
+
+    void drawText(const char *text, uint8_t row, Align align = Align::Left, bool reserve = false);
 
     void drawData(const uint8_t data[][8], uint8_t x = 0 , uint8_t y = 0, uint8_t max_row = 8, uint8_t max_column = 16);
 
@@ -112,7 +113,6 @@ public:
 
 private:
     I2C _i2c;
-
     uint8_t _address;
 
     const uint8_t FONT5x8[95][5] = {

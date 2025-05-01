@@ -3,7 +3,7 @@
  * @author Yunoshin Tani (taniyunoshin@gmail.com)
  * @brief SSD1309 OLED display driver
  * @details This is a library for the SSD1309 OLED display driver.
- * @version α2.1.0
+ * @version α2.2.0
  * @since 2025/04/26
  * @date 2025/04/29
  * @copyright Copyright (c) 2025
@@ -65,7 +65,9 @@ void SSD1309::clear() {
     for (uint8_t i1=0; i1<8; i1++) {
         setCursor(0, i1);
         for (uint8_t i2=0; i2<16; i2++) {
-            send(0x00);
+            for (uint8_t i3=0; i3<8; i3++) {
+                send(0x00);
+            }
         }
     }
 }
@@ -74,7 +76,9 @@ void SSD1309::fill() {
     for (uint8_t i1=0; i1<8; i1++) {
         setCursor(0, i1);
         for (uint8_t i2=0; i2<16; i2++) {
-            send(0xFF);
+            for (uint8_t i3=0; i3<8; i3++) {
+                send(0xFF);
+            }
         }
     }
 }
@@ -121,30 +125,42 @@ void SSD1309::fillCircle(uint8_t x, uint8_t y, uint8_t r) {
 void SSD1309::drawInt(int data, uint8_t row, uint8_t x, const char *option) {
     char buf[10];
     sprintf(buf, option, data);
-    drawText(buf, x, row);
+    drawText(buf, row, x);
 }
 
-void SSD1309::drawChar(char data) {
+void SSD1309::drawInt(int data, uint8_t row, Align align, const char *option) {
+    char buf[10];
+    sprintf(buf, option, data);
+    drawText(buf, row, align);
+}
+
+void SSD1309::drawChar(char data, bool reserve) {
     for (uint8_t i=0; i<5; i++) {
-        send(SSD1309::FONT5x8[data - 32][i]);
+        if (reserve) send(~(SSD1309::FONT5x8[data - 32][i]));
+        else send(SSD1309::FONT5x8[data - 32][i]);
     }
-    send(0x00);
+    if (reserve) send(0xFF);
+    else send(0x00);
 }
 
-void SSD1309::drawText(const char *text, uint8_t row, uint8_t x) {
+void SSD1309::drawText(const char *text, uint8_t row, uint8_t x, bool reserve) {
     setCursor(x, row);
+    if (reserve) send(0xFF);
+    else send(0x00);
     while (*text) {
-        drawChar(*text++);
+        drawChar(*text++, reserve);
     }
 }
 
-void SSD1309::drawText(const char *text, uint8_t row, Align align) {
+void SSD1309::drawText(const char *text, uint8_t row, Align align, bool reserve) {
     if (align == Align::Left) setCursor(0, row);
     else if (align == Align::Center) setCursor((128-strlen(text)*6)/2, row);
     else if (align == Align::Right) setCursor(128-strlen(text)*6, row);
     else setCursor(0, row);
+    if (reserve) send(0xFF);
+    else send(0x00);
     while (*text) {
-        drawChar(*text++);
+        drawChar(*text++, reserve);
     }
 }
 

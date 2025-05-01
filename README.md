@@ -21,12 +21,14 @@ GitHubのリンク : [YunoshinTani/SSD1309_OLED_Driver](https://github.com/Yunos
 ディスプレイのピクセルをすべて消します。
 - **`void fill()`**  
 ディスプレイのピクセルをすべて表示します。
-- **`void drawText(const char *text, uint8_t row, Align align = Left)`**  
-文章を表示します。一番使えるやつです。例えば、alignに**Center**を指定すると、中央揃えにしてくれます。初期値はLeftです。
+- **`void drawText(const char *text, uint8_t row, Align align = Left, bool reverse = false)`**  
+文章を表示します。一番使えるやつです。例えば、alignに**Center**を指定すると、中央揃えにしてくれます。初期値はLeftです。reverseをtrueにすると色が反転します。
 - **`void drawText(const char *text, uint8_t row, uint8_t x)`**  
 上の関数の最後の引数を数字にすると、その引数のx座標から文章を表示します。細かい位置指定が必要な時に使えます。
+- **`void SSD1309::drawInt(int data, uint8_t row, Align align = Left, const char *option)`**
+drawTextの数字版です。optionにフォーマットを指定すると様々な形式で数字を表現できます。センサーの数字を表示する等に便利です。
 - **`void drawInt(int data, uint8_t row, uint8_t x, const char *option)`**  
-数字を表示します。optionにフォーマット指定子(%dなど)を指定できます。初期設定値は"%d"です。センサーの数字を表示する等に便利です。
+上の関数のalignを数字にすると細かいx座標が指定できます。
 - **`void drawData(const uint8_t data[][8], uint8_t x=0, uint8_t y=0, uint8_t max_row=8, uint8_t max_column=16)`**  
 ピクセルのデータを描画します。絵を描画したいときに使えます。ピクセルの配列はなんか癖が強いので注意してね。
 - **`void drawQR(uint8_t data[][], uint8_t x, uint8_t y)`**  
@@ -69,7 +71,7 @@ int main() {
         oled1.drawText("Sensor Value:", 5, 20); // 文字列をX座標20の位置から表示
         oled1.drawInt(example_value1, 6, 0); // 値(int型)をX座標0の位置から表示
         oled1.drawText(",", 6, 30); // 文字列をX座標20の位置から表示
-        oled1.drawInt(example_value2, 6, 60);
+        oled1.drawInt(example_value2, 6, SSD1309::Align::Right, "%x"); // 値を16進数で右揃えで表示
         oled1.drawText("GoodLuck!!", 7, Oled::Align::Right); // 行は0から7まで
     }
 }
@@ -81,16 +83,16 @@ int main() {
 ## このライブラリについて (about this library)
 
 **author**  : Yunoshin Tani  
-**version** : α2.1.0  
+**version** : α2.2.0  
 **since**   : 2025/04/26  
-**date**    : 2025/04/28  
+**date**    : 2025/05/01  
 
 ## このファイルについて (about this file)
 
 **author**  : Yunoshin Tani  
-**version** : α2.1.0  
+**version** : α2.2.1  
 **since**   : 2025/04/26  
-**date**    : 2025/04/28  
+**date**    : 2025/05/01  
 
 > [!NOTE]
 > まだアルファ版です。
